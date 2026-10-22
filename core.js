@@ -184,6 +184,27 @@ export function parseChecklist(lines) {
 
 // ---------- 3) bloques ----------
 // block: {kind:'tanque'|'vacio'|'manguera'|'consola'|'sistema', select, producto, capacidad, inhab, serie}
+// Alias de nombres de programa informático (checklist -> valor de la lista de la hoja).
+// Clave: nombre normalizado (minúsculas, sin acentos ni espacios). Solo nombres de programa, nunca proveedores.
+export const PROGRAM_ALIASES = { gaslight: 'GasLightManager' };
+const squash = s => norm(s).replace(/[\s\-_.]/g, '');
+export function normalizePrograma(name, list) {
+  const n = squash(name);
+  if (!n) return { value: name, note: null };
+  const cands = (list || []).filter(x => x && !/litros|^manguera/i.test(x));
+  const exact = cands.find(x => squash(x) === n);
+  if (exact) return { value: exact, note: null };
+  const alias = PROGRAM_ALIASES[n];
+  if (alias) {
+    const v = cands.find(x => squash(x) === squash(alias)) || alias;
+    return { value: v, note: `ℹ️ Programa "${name}" del checklist se capturó como "${v}" (alias configurado).` };
+  }
+  const starts = cands.filter(x => squash(x).startsWith(n));
+  const m = starts.length ? starts : cands.filter(x => squash(x).includes(n));
+  if (m.length === 1) return { value: m[0], note: `ℹ️ Programa "${name}" no está tal cual en la lista; se usó "${m[0]}" (única coincidencia). Verifícalo.` };
+  return { value: name, note: null }; // 0 o varias coincidencias: validateBlocks avisa con sugerencias
+}
+
 export function buildBlocks(p) {
   const blocks = [], warnings = [];
   const tanks = [...p.tanques].sort((a, b) => a.num - b.num);
@@ -230,7 +251,9 @@ export function buildBlocks(p) {
   let consolaNombre = c.marca || '';
   if (c.modelo && !norm(consolaNombre).includes(norm(c.modelo))) consolaNombre = (consolaNombre + ' ' + c.modelo).trim();
   blocks.push({ kind: 'consola', select: 'Consola ', producto: '', capacidad: consolaNombre, inhab: '', serie: c.serie || '' });
-  blocks.push({ kind: 'sistema', select: 'Sistema Informático ', producto: '', capacidad: p.programa.nombre || '', inhab: '', serie: p.programa.version || '' });
+  const prog = normalizePrograma(p.programa.nombre || '', listFor(blocks.length + 1, 'capacidad'));
+  if (prog.note) warnings.push(prog.note);
+  blocks.push({ kind: 'sistema', select: 'Sistema Informático ', producto: '', capacidad: prog.value, inhab: '', serie: p.programa.version || '' });
   if (blocks.length > MAX_BLOCKS) warnings.push(`Se generaron ${blocks.length} bloques pero la hoja solo tiene ${MAX_BLOCKS} (E1–E100). Los sobrantes se omiten.`);
   return { blocks, warnings };
 }

@@ -100,7 +100,7 @@ function refresh() {
   if (!state.blocks.length) return;
   const issues = C.validateBlocks(state.blocks);
   const all = [...state.warnings, ...issues.map(x => x.msg + (x.suggestions && x.suggestions.length ? ' Sugerencias: ' + x.suggestions.join(' / ') + '.' : ''))];
-  $('#warnCard').hidden = !all.length; $('#warnings').innerHTML = all.map(w => `<li>${esc(w)}</li>`).join('');
+  $('#warnCard').hidden = !all.length; $('#warnings').innerHTML = all.map(w => `<li${w.startsWith('ℹ') ? ' class="info"' : ''}>${esc(w)}</li>`).join('');
   $('#previewCard').hidden = false; $('#copyCard').hidden = false;
   renderTable(issues);
   const row = parseInt(rowEl.value, 10);

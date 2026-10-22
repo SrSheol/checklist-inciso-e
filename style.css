@@ -14,3 +14,4 @@ button.big{font-size:1.4rem;padding:14px 34px;background:#1d8a4e;color:#fff;bord
 button.small{margin-top:8px;padding:5px 10px}#copyStatus{margin-left:14px;font-weight:600;color:#1d8a4e}.howto{line-height:1.8}
 kbd{border:1px solid #aaa;border-bottom-width:2px;border-radius:4px;padding:0 5px;background:#fafafa}textarea{width:100%;font-family:monospace;font-size:.75rem}
 .hint{font-size:.88rem;color:#555}footer{text-align:center;color:#777;font-size:.8rem;padding:10px 20px 30px}
+#warnings li.info{color:#1f5a9a}
