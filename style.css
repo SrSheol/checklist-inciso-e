@@ -15,3 +15,6 @@ button.small{margin-top:8px;padding:5px 10px}#copyStatus{margin-left:14px;font-w
 kbd{border:1px solid #aaa;border-bottom-width:2px;border-radius:4px;padding:0 5px;background:#fafafa}textarea{width:100%;font-family:monospace;font-size:.75rem}
 .hint{font-size:.88rem;color:#555}footer{text-align:center;color:#777;font-size:.8rem;padding:10px 20px 30px}
 #warnings li.info{color:#1f5a9a}
+#copyStatus.ok{color:#1d8a4e}#copyStatus.err{color:#c62828}#copyStatus.info{color:#555;font-weight:500}
+#row.need{outline:3px solid #e0a100;outline-offset:2px}.manual{margin-top:14px;padding-top:10px;border-top:1px solid #e3e7ee;font-size:.9rem}
+.manual button{margin:0 0 0 8px}

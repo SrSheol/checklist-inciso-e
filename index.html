@@ -47,14 +47,18 @@
 
   <section class="card" id="copyCard" hidden>
     <h2>4. Copia y pega</h2>
-    <button id="copy" class="big">📋 Copiar fila</button>
-    <span id="copyStatus"></span>
+    <button id="copy" class="big" type="button">📋 Copiar fila</button>
+    <span id="copyStatus" role="status" aria-live="polite"></span>
     <ol class="howto">
       <li>Abre tu Google Sheet en la pestaña <b>Inciso E</b>.</li>
       <li>Haz clic en la celda de la <b>columna C</b> de la fila <b id="howRow">indicada</b> (p. ej. <code id="howCell">C454</code>).</li>
       <li>Presiona <kbd>Ctrl</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>V</kbd> en Mac).</li>
     </ol>
-    <details><summary>Ver texto TSV generado</summary><textarea id="tsv" readonly rows="6"></textarea></details>
+    <div class="manual">
+      <p><b>¿No se copió?</b> Copia manualmente: pulsa «Seleccionar todo», luego <kbd>Ctrl</kbd>+<kbd>C</kbd> (<kbd>⌘</kbd>+<kbd>C</kbd> en Mac) y pega en la columna C como arriba.
+      <button id="selectAll" class="small" type="button">Seleccionar todo</button></p>
+      <textarea id="tsv" readonly rows="4" spellcheck="false" aria-label="Fila generada (texto separado por tabuladores)"></textarea>
+    </div>
   </section>
 </main>
 <footer>Las fórmulas se pegan con separador de argumentos «,» (como están en la hoja). Si tu hoja usa una configuración regional con «;», revísalas.</footer>
