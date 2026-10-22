@@ -3,65 +3,149 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Checklist MECV → Inciso E</title>
+<title>Inciso E por bloques</title>
+<meta name="description" content="Convierte el checklist en PDF en bloques listos para pegar en la pestaña Inciso E de Google Sheets.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E6B5C'/%3E%3Cpath d='M9 8h11v3h-7v4h6v3h-6v4h7v3H9z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:,">
 </head>
 <body>
-<header>
-  <h1>Checklist MECV → fila para «Inciso E»</h1>
-  <p class="privacy">🔒 El PDF se procesa <b>solo en tu navegador</b>. No se sube a ningún servidor.</p>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true">E</span>
+    <div>
+      <h1>Inciso E</h1>
+      <p>Checklist en PDF → bloques para Google Sheets</p>
+    </div>
+  </div>
+  <p class="privacy">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 9V6.5a4 4 0 1 1 8 0V9h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h1Zm2 0h4V6.5a2 2 0 1 0-4 0V9Z"/></svg>
+    El PDF se lee en este navegador. No se sube a ningún servidor.
+  </p>
 </header>
-<main>
-  <section class="card" id="step1">
-    <h2>1. Carga el checklist (PDF)</h2>
-    <label id="drop" class="drop" tabindex="0">
-      <input type="file" id="file" accept="application/pdf,.pdf" hidden>
-      <span id="dropText">Arrastra aquí el PDF del checklist o <u>haz clic para elegirlo</u></span>
-    </label>
-    <div id="meta" class="meta" hidden></div>
-  </section>
 
-  <section class="card">
-    <h2>2. Fila destino en «Inciso E»</h2>
-    <div class="row-input">
-      <label>Fila: <input type="number" id="row" min="3" step="1" placeholder="p. ej. 454"></label>
-      <label class="chk"><input type="checkbox" id="fillAll"> Rellenar hasta E100 (columna VX) para limpiar bloques sobrantes de la fila</label>
-    </div>
-  </section>
+<div class="layout">
+  <!-- ========== Panel lateral: fila destino, modo guiado, archivo ========== -->
+  <aside class="side">
+    <section class="panel row-panel">
+      <label for="row" class="row-label">Fila destino en «Inciso E»</label>
+      <div class="row-field">
+        <span class="row-hash" aria-hidden="true">#</span>
+        <input id="row" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="128" aria-describedby="rowHint">
+      </div>
+      <p class="row-hint" id="rowHint">El número de fila de Sheets donde va este checklist (3 o mayor).</p>
+    </section>
 
-  <section class="card" id="warnCard" hidden>
-    <h2>Advertencias</h2>
-    <ul id="warnings"></ul>
-  </section>
+    <section class="panel guide" id="guide" data-state="off" aria-labelledby="guideTitle" hidden>
+      <h2 id="guideTitle" class="sr-only">Modo guiado</h2>
+      <div class="g-readout" aria-live="polite">
+        <p class="g-kicker" id="gKicker">Carga un checklist para empezar</p>
+        <p class="g-cell" id="gCell">—</p>
+        <p class="g-what" id="gWhat"></p>
+      </div>
+      <button type="button" class="btn-next" id="next" disabled>
+        <span class="btn-next-main" id="nextLabel">Copiar siguiente</span>
+        <span class="btn-next-sub" id="nextSub"></span>
+        <kbd aria-hidden="true">Espacio</kbd>
+      </button>
+      <div class="g-progress">
+        <div class="bar" role="progressbar" aria-label="Bloques copiados" aria-valuemin="0" id="gBar"><i></i></div>
+        <span id="gCount">0 de 0</span>
+      </div>
+      <div class="g-actions">
+        <button type="button" class="ghost" id="again" disabled>Volver a copiar <kbd>R</kbd></button>
+        <button type="button" class="ghost" id="restart" disabled>Reiniciar</button>
+      </div>
+      <p class="g-tip">En Sheets, escribe la celda en el cuadro de nombre (arriba a la izquierda) y pulsa <kbd>Enter</kbd> para llegar directo. Luego <kbd>Ctrl</kbd>+<kbd>V</kbd>.</p>
+    </section>
 
-  <section class="card" id="previewCard" hidden>
-    <h2>3. Revisa / edita los bloques</h2>
-    <p class="hint">Puedes editar cualquier celda. Las celdas en rojo no están en la lista de validación de la hoja (Sheets podría rechazar el pegado). La columna RESULTADO lleva la fórmula original de la hoja ajustada a la fila destino.</p>
-    <div class="table-wrap"><table id="preview">
-      <thead><tr><th>Bloque</th><th>Columnas</th><th>Selección</th><th>Producto</th><th>Capacidad / Manguera</th><th>Inhabilitado</th><th>Serie / Versión</th><th></th></tr></thead>
-      <tbody></tbody>
-    </table></div>
-    <button id="addBlock" class="small">+ Agregar bloque al final</button>
-  </section>
+    <section class="panel file-panel" id="filePanel" hidden>
+      <div class="file-head">
+        <svg class="file-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V8h4.5"/></svg>
+        <div class="file-name" id="fileName"></div>
+        <button type="button" class="link" id="changeFile">Cambiar PDF</button>
+      </div>
+      <dl class="file-meta" id="fileMeta"></dl>
+      <p class="file-counts" id="fileCounts"></p>
+    </section>
+  </aside>
 
-  <section class="card" id="copyCard" hidden>
-    <h2>4. Copia y pega</h2>
-    <button id="copy" class="big" type="button">📋 Copiar fila</button>
-    <span id="copyStatus" role="status" aria-live="polite"></span>
-    <ol class="howto">
-      <li>Abre tu Google Sheet en la pestaña <b>Inciso E</b>.</li>
-      <li>Haz clic en la celda de la <b>columna C</b> de la fila <b id="howRow">indicada</b> (p. ej. <code id="howCell">C454</code>).</li>
-      <li>Presiona <kbd>Ctrl</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>V</kbd> en Mac).</li>
-    </ol>
-    <div class="manual">
-      <p><b>¿No se copió?</b> Copia manualmente: pulsa «Seleccionar todo», luego <kbd>Ctrl</kbd>+<kbd>C</kbd> (<kbd>⌘</kbd>+<kbd>C</kbd> en Mac) y pega en la columna C como arriba.
-      <button id="selectAll" class="small" type="button">Seleccionar todo</button></p>
-      <textarea id="tsv" readonly rows="4" spellcheck="false" aria-label="Fila generada (texto separado por tabuladores)"></textarea>
-    </div>
-  </section>
-</main>
-<footer>Las fórmulas se pegan con separador de argumentos «,» (como están en la hoja). Si tu hoja usa una configuración regional con «;», revísalas.</footer>
+  <!-- ========== Área principal ========== -->
+  <main class="main">
+    <section class="empty" id="empty">
+      <label class="dropzone" id="drop" for="file" tabindex="0">
+        <input type="file" id="file" accept="application/pdf,.pdf" hidden>
+        <svg class="drop-ico" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M16 6h22l12 12v36a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4Z" class="sheet"/>
+          <path d="M38 6v12h12" class="fold"/>
+          <path d="M32 46V27m-8 8 8-8 8 8" class="arrow"/>
+        </svg>
+        <span class="drop-title" id="dropTitle">Arrastra aquí el checklist en PDF</span>
+        <span class="drop-sub" id="dropSub">o haz clic para elegirlo</span>
+      </label>
+      <ol class="how">
+        <li><b>Carga el PDF.</b> Se leen tanques, mangueras, consola y sistema informático.</li>
+        <li><b>Escribe la fila destino</b> de la pestaña «Inciso E».</li>
+        <li><b>Copia bloque por bloque</b> con <kbd>Espacio</kbd> y pega cada uno en Sheets con <kbd>Ctrl</kbd>+<kbd>V</kbd> en la celda que se indica.</li>
+      </ol>
+    </section>
+
+    <section class="work" id="work" hidden>
+      <div class="strip-wrap">
+        <div class="strip-head">
+          <h2>Fila <span id="stripRow">—</span> en la hoja</h2>
+          <p class="legend">
+            <span><i class="lg lg-in"></i>se pega</span>
+            <span><i class="lg lg-done"></i>copiado</span>
+            <span><i class="lg lg-next"></i>siguiente</span>
+            <span><i class="lg lg-lock"></i>RESULTADO, protegida</span>
+          </p>
+        </div>
+        <div class="strip" id="strip" aria-hidden="true"></div>
+        <div class="strip-ends"><span id="stripFirst">C</span><span id="stripLast"></span></div>
+      </div>
+
+      <details class="warn" id="warnBox" hidden>
+        <summary><span id="warnSummary"></span></summary>
+        <ul id="warnings"></ul>
+      </details>
+
+      <div class="list-head" aria-hidden="true">
+        <span></span><span>Bloque</span><span></span>
+        <span class="lh-cells"><span>Selección</span><span>Producto</span><span>Capacidad / equipo</span><span>Inhabilitado</span><span>Serie / versión</span></span>
+        <span>Pegar en</span>
+      </div>
+      <ol class="blocks" id="blocks"></ol>
+      <button type="button" class="ghost add" id="addBlock">Agregar bloque al final</button>
+
+      <details class="fullrow" id="fullRow">
+        <summary>Fila completa, solo como referencia</summary>
+        <p>Este texto no se puede pegar de una vez: incluye las columnas RESULTADO, que están protegidas, y Sheets rechaza el pegado («El rango de datos que intentas pegar se superpone a algunas celdas protegidas»). Sirve para revisar o comparar. Las fórmulas van con separador «,», como en la hoja.</p>
+        <label class="check"><input type="checkbox" id="fillAll"> Incluir hasta E100 (columna VX)</label>
+        <textarea id="tsv" readonly rows="3" spellcheck="false" aria-label="Fila completa separada por tabuladores"></textarea>
+        <button type="button" class="ghost" id="copyRow">Copiar fila completa</button>
+      </details>
+
+      <label class="check guard"><input type="checkbox" id="guard" checked> Pegar como texto los valores que Sheets convertiría (números, fechas, o que empiezan con = + - @). Se antepone un apóstrofo, que Sheets no muestra.</label>
+    </section>
+  </main>
+</div>
+
+<div class="dropveil" id="dropveil" aria-hidden="true"><p>Suelta el PDF para leerlo</p></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="manual" aria-labelledby="manualTitle">
+  <h2 id="manualTitle">Copia a mano</h2>
+  <p>El navegador no dejó copiar automáticamente. El texto ya está seleccionado: pulsa <kbd>Ctrl</kbd>+<kbd>C</kbd> (<kbd>⌘</kbd>+<kbd>C</kbd> en Mac) y pégalo en <b id="manualCell"></b>.</p>
+  <textarea id="manualText" readonly rows="3" spellcheck="false"></textarea>
+  <div class="dlg-actions">
+    <button type="button" class="ghost" id="manualSelect">Seleccionar de nuevo</button>
+    <button type="button" class="primary" id="manualClose">Listo</button>
+  </div>
+</dialog>
+
 <datalist id="dl-producto"></datalist><datalist id="dl-inhab"></datalist><datalist id="dl-selC"></datalist><datalist id="dl-sel"></datalist><datalist id="dl-capE"></datalist><datalist id="dl-capK"></datalist><datalist id="dl-cap"></datalist>
 <script type="module" src="app.js"></script>
 </body>
