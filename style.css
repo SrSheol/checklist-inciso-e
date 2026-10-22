@@ -1,0 +1,16 @@
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#f4f6f9;color:#1d2330}
+header{background:#1f3b63;color:#fff;padding:18px 24px}header h1{margin:0;font-size:1.4rem}.privacy{margin:6px 0 0;opacity:.9}
+main{max-width:1200px;margin:0 auto;padding:16px}.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+h2{font-size:1.1rem;margin:0 0 10px}.drop{display:block;border:2px dashed #8aa4c8;border-radius:10px;padding:32px;text-align:center;cursor:pointer;color:#33507a;background:#f7faff}
+.drop.over{background:#e3eeff;border-color:#1f3b63}.meta{margin-top:10px;font-size:.95rem}.meta b{color:#1f3b63}
+.row-input{display:flex;gap:24px;align-items:center;flex-wrap:wrap}#row{font-size:1.2rem;width:120px;padding:6px}.chk{font-size:.9rem;color:#444}
+#warnings li{color:#8a5300;margin:4px 0}#warnCard{border-left:5px solid #e0a100}
+.table-wrap{overflow:auto;max-height:60vh}table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{border-bottom:1px solid #e3e7ee;padding:3px 4px;text-align:left;white-space:nowrap}
+th{position:sticky;top:0;background:#eef2f8;z-index:1}td input{width:100%;min-width:90px;padding:3px 5px;border:1px solid #cfd6e2;border-radius:4px;font:inherit}
+td input:disabled{background:#f1f1f1;border-color:#eee}td input.bad{border-color:#d22;background:#fff0f0}
+tr.k-tanque td:first-child{border-left:4px solid #2a7}tr.k-manguera td:first-child{border-left:4px solid #37c}tr.k-consola td:first-child,tr.k-sistema td:first-child{border-left:4px solid #a4c}tr.k-vacio{color:#999}
+.cols{color:#777;font-family:monospace}.acts button{border:0;background:none;cursor:pointer;font-size:1rem;padding:0 3px}
+button.big{font-size:1.4rem;padding:14px 34px;background:#1d8a4e;color:#fff;border:0;border-radius:10px;cursor:pointer}button.big:hover{background:#15703e}
+button.small{margin-top:8px;padding:5px 10px}#copyStatus{margin-left:14px;font-weight:600;color:#1d8a4e}.howto{line-height:1.8}
+kbd{border:1px solid #aaa;border-bottom-width:2px;border-radius:4px;padding:0 5px;background:#fafafa}textarea{width:100%;font-family:monospace;font-size:.75rem}
+.hint{font-size:.88rem;color:#555}footer{text-align:center;color:#777;font-size:.8rem;padding:10px 20px 30px}

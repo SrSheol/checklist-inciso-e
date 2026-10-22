@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklist MECV → Inciso E</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header>
+  <h1>Checklist MECV → fila para «Inciso E»</h1>
+  <p class="privacy">🔒 El PDF se procesa <b>solo en tu navegador</b>. No se sube a ningún servidor.</p>
+</header>
+<main>
+  <section class="card" id="step1">
+    <h2>1. Carga el checklist (PDF)</h2>
+    <label id="drop" class="drop" tabindex="0">
+      <input type="file" id="file" accept="application/pdf,.pdf" hidden>
+      <span id="dropText">Arrastra aquí el PDF del checklist o <u>haz clic para elegirlo</u></span>
+    </label>
+    <div id="meta" class="meta" hidden></div>
+  </section>
+
+  <section class="card">
+    <h2>2. Fila destino en «Inciso E»</h2>
+    <div class="row-input">
+      <label>Fila: <input type="number" id="row" min="3" step="1" placeholder="p. ej. 454"></label>
+      <label class="chk"><input type="checkbox" id="fillAll"> Rellenar hasta E100 (columna VX) para limpiar bloques sobrantes de la fila</label>
+    </div>
+  </section>
+
+  <section class="card" id="warnCard" hidden>
+    <h2>Advertencias</h2>
+    <ul id="warnings"></ul>
+  </section>
+
+  <section class="card" id="previewCard" hidden>
+    <h2>3. Revisa / edita los bloques</h2>
+    <p class="hint">Puedes editar cualquier celda. Las celdas en rojo no están en la lista de validación de la hoja (Sheets podría rechazar el pegado). La columna RESULTADO lleva la fórmula original de la hoja ajustada a la fila destino.</p>
+    <div class="table-wrap"><table id="preview">
+      <thead><tr><th>Bloque</th><th>Columnas</th><th>Selección</th><th>Producto</th><th>Capacidad / Manguera</th><th>Inhabilitado</th><th>Serie / Versión</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <button id="addBlock" class="small">+ Agregar bloque al final</button>
+  </section>
+
+  <section class="card" id="copyCard" hidden>
+    <h2>4. Copia y pega</h2>
+    <button id="copy" class="big">📋 Copiar fila</button>
+    <span id="copyStatus"></span>
+    <ol class="howto">
+      <li>Abre tu Google Sheet en la pestaña <b>Inciso E</b>.</li>
+      <li>Haz clic en la celda de la <b>columna C</b> de la fila <b id="howRow">indicada</b> (p. ej. <code id="howCell">C454</code>).</li>
+      <li>Presiona <kbd>Ctrl</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>V</kbd> en Mac).</li>
+    </ol>
+    <details><summary>Ver texto TSV generado</summary><textarea id="tsv" readonly rows="6"></textarea></details>
+  </section>
+</main>
+<footer>Las fórmulas se pegan con separador de argumentos «,» (como están en la hoja). Si tu hoja usa una configuración regional con «;», revísalas.</footer>
+<datalist id="dl-producto"></datalist><datalist id="dl-inhab"></datalist><datalist id="dl-selC"></datalist><datalist id="dl-sel"></datalist><datalist id="dl-capE"></datalist><datalist id="dl-capK"></datalist><datalist id="dl-cap"></datalist>
+<script type="module" src="app.js"></script>
+</body>
+</html>
