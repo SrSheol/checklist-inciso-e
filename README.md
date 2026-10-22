@@ -9,4 +9,6 @@ Página estática que convierte un checklist MECV (PDF) en una fila separada por
 
 Uso: abre la página, arrastra el PDF, escribe la fila destino, revisa/edita, pulsa **Copiar fila**, haz clic en la columna C de esa fila en Inciso E y pega con Ctrl+V.
 
+También hay un panel para Google Sheets que llena la fila celda por celda sin tocar las columnas protegidas: instrucciones en [apps-script/INSTALAR.md](apps-script/INSTALAR.md).
+
 Este repositorio no contiene datos de clientes.
